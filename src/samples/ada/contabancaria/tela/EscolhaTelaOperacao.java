@@ -8,6 +8,7 @@ public class EscolhaTelaOperacao {
 		return switch (operacao){
 			case CRIAR_CONTA ->  new TelaOperacaoCriarConta();
 			case CONSULTAR_SALDO -> new TelaOperacaoConsultarSaldo();
+			case FAZER_SAQUE -> new TelaOperacaoFazerSaque();
 			default -> (scanner, banco) -> System.out.println("Opcao invalida");
 		};
 	}

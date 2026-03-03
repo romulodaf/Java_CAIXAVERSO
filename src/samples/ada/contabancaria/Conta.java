@@ -16,8 +16,17 @@ public abstract sealed class Conta implements OperacoesBancarias permits ContaPo
 
 	@Override
 	public void sacar(BigDecimal valor) {
-		System.out.println("Sacar da classe conta");
-		aplicarTaxaOperacao();
+		if(verificaSaldo(valor)) {
+			aplicarTaxaOperacao();
+			saldo = saldo.subtract(valor);
+		}else{
+			System.err.println("saldo insufiente");
+		}
+	}
+
+	private boolean verificaSaldo(BigDecimal valor) {
+		return saldo
+				.compareTo(valor.add(BigDecimal.valueOf(getTipoConta().getValorTarifa()))) >= 0;
 	}
 
 	@Override
