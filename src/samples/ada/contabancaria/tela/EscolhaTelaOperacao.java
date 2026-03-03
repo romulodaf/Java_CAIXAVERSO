@@ -1,0 +1,14 @@
+package samples.ada.contabancaria.tela;
+
+import samples.ada.contabancaria.Operacao;
+
+public class EscolhaTelaOperacao {
+
+	public static TelaOperacao obterTelaOperacao(Operacao operacao){
+		return switch (operacao){
+			case CRIAR_CONTA ->  new TelaOperacaoCriarConta();
+			case CONSULTAR_SALDO -> new TelaOperacaoConsultarSaldo();
+			default -> (scanner, banco) -> System.out.println("Opcao invalida");
+		};
+	}
+}
