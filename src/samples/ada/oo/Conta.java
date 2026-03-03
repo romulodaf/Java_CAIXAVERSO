@@ -30,12 +30,12 @@ public class Conta {
 		}
 	}
 
-	double depositar(double valor){
+	public double depositar(double valor){
 		this.numero = 345;
 		saldo +=valor;
 		return saldo;
 	}
-	double realizarEmprestimo(double valor){return 0;}
+	public double realizarEmprestimo(double valor){return 0;}
 
 	public double getSaldo() {
 		return saldo;

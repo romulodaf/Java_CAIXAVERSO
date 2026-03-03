@@ -5,7 +5,7 @@ public class Pessoa {
 	int idade;
 	Conta[] contas;
 
-	Pessoa(String nome){
+	public Pessoa(String nome){
 		this.nome = nome;
 	}
 }
