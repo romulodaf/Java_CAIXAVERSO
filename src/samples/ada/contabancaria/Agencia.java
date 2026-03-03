@@ -14,4 +14,17 @@ public class Agencia {
 		this.numero = numero;
 		contas =  new LinkedList<>();
 	}
+
+	public void addNovaConta(Conta conta){
+		contas.add(conta);
+	}
+
+	public Conta getConta(String numeroConta){
+		for(Conta conta : contas){
+			if(conta.getNumero().equals(numeroConta.substring(0,4))){
+				return conta;
+			}
+		}
+	 throw new ContaNaoEncontradaException(numeroConta);
+	}
 }

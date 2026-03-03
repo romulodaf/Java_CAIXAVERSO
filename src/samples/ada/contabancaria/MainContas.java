@@ -1,5 +1,8 @@
 package samples.ada.contabancaria;
 
+import samples.ada.contabancaria.tela.EscolhaTelaOperacao;
+import samples.ada.contabancaria.tela.TelaOperacao;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,6 +22,8 @@ public class MainContas {
 			}
 			sair = scanner.nextInt();
 			Operacao operacaoEscolhida = Operacao.obterDoNumeroDeOperacao(sair);
+			TelaOperacao telaOperacao = EscolhaTelaOperacao.obterTelaOperacao(operacaoEscolhida);
+			telaOperacao.execute(scanner, banco);
 		}while(sair !=0);
 
 

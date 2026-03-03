@@ -1,6 +1,7 @@
 package samples.ada.contabancaria;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 public abstract sealed class Conta implements OperacoesBancarias permits ContaPoupanca, ContaSimples {
 	private String numero;
@@ -59,5 +60,20 @@ public abstract sealed class Conta implements OperacoesBancarias permits ContaPo
 
 	public Pessoa getCliente() {
 		return cliente;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void adicionarInformacoes(Pessoa cliente, Agencia agencia ){
+		this.cliente = cliente;
+		this.agencia = agencia;
+		this.saldo = BigDecimal.ZERO;
+		this.numero = UUID.randomUUID().toString().substring(0, 4);
+	}
+
+	public BigDecimal getSaldo() {
+		return saldo;
 	}
 }
