@@ -11,16 +11,22 @@ public abstract sealed class Conta implements OperacoesBancarias permits ContaPo
 
 	private void aplicarTaxaOperacao(){
 		saldo = saldo.subtract(BigDecimal.valueOf(getTipoConta().getValorTarifa()));
-		System.out.println(saldo);
+		//System.out.println(saldo);
 	}
 
 	@Override
-	public void sacar(BigDecimal valor) {
+	public boolean sacar(BigDecimal valor) {
+		if(!verificaValor(valor)){
+			System.err.println("Valor Inválido");
+			return false;
+		}
 		if(verificaSaldo(valor)) {
 			aplicarTaxaOperacao();
 			saldo = saldo.subtract(valor);
+			return true;
 		}else{
 			System.err.println("saldo insufiente");
+			return false;
 		}
 	}
 
@@ -29,43 +35,57 @@ public abstract sealed class Conta implements OperacoesBancarias permits ContaPo
 				.compareTo(valor.add(BigDecimal.valueOf(getTipoConta().getValorTarifa()))) >= 0;
 	}
 
-	@Override
-	public void sacar(double valor) {
-		sacar(BigDecimal.valueOf(valor));
-	}
-	@Override
-	public void sacar(int valor){
-		sacar(BigDecimal.valueOf(valor));
+	private boolean verificaValor(BigDecimal valor) {
+		return valor.compareTo(BigDecimal.ZERO) >= 0;
 	}
 
 	@Override
-	public void depositar(BigDecimal valor) {
-		// TODO fazer algo
-		aplicarTaxaOperacao();
+	public boolean sacar(double valor) {
+		return sacar(BigDecimal.valueOf(valor));
+	}
+	@Override
+	public boolean sacar(int valor){
+		return sacar(BigDecimal.valueOf(valor));
 	}
 
 	@Override
-	public void depositar(double valor) {
-		depositar(BigDecimal.valueOf(valor));
+	public boolean depositar(BigDecimal valor) {
+		if(verificaValor(valor)) {
+			saldo = saldo.add(valor);
+		}else{
+			System.err.println("Valor inválido.");
+			return false;
+		}
+		//aplicarTaxaOperacao();
+		return true;
 	}
 
 	@Override
-	public void transferir(BigDecimal valor, Pessoa pessoa) {
-		// TODO fazer algo
-		aplicarTaxaOperacao();
+	public boolean depositar(double valor) {
+		return depositar(BigDecimal.valueOf(valor));
 	}
 
 	@Override
-	public void transferir(double valor, Conta conta) {
-		transferir(BigDecimal.valueOf(valor), conta.getCliente());
+	public boolean depositar(int valor) {
+		return depositar(BigDecimal.valueOf(valor));
+	}
 
+	@Override
+	public boolean transferir(BigDecimal valor, Conta conta) {
+		if(sacar(valor)) {
+			conta.depositar(valor);
+			return true;
+		}
+		// aplicarTaxaOperacao();
+		return false;
+	}
+
+	@Override
+	public boolean transferir(double valor, Conta conta) {
+		return transferir(BigDecimal.valueOf(valor), conta);
 	}
 
 	protected abstract TipoConta getTipoConta();
-
-	public void setSaldo(BigDecimal saldo) {
-		this.saldo = saldo;
-	}
 
 	public Pessoa getCliente() {
 		return cliente;

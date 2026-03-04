@@ -15,7 +15,8 @@ public class TelaOperacaoFazerSaque implements TelaOperacao {
 		Conta conta = banco.agencias().getFirst().getConta(numeroConta);
 		System.out.println("Informe o valor do saque");
 		double valor = scanner.nextDouble();
-		conta.sacar(BigDecimal.valueOf(valor));
-		System.out.println("Saque realizado com sucesso");
+		if(conta.sacar(BigDecimal.valueOf(valor))) {
+			System.out.println("Saque realizado com sucesso");
+		}
 	}
 }

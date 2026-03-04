@@ -4,11 +4,12 @@ import java.math.BigDecimal;
 
 public sealed interface OperacoesBancarias permits Conta {
 
-	void sacar(BigDecimal valor);
-	void sacar(double valor);
-	void sacar (int valor);
-	void depositar(BigDecimal valor);
-	void depositar(double valor);
-	void transferir(BigDecimal valor, Pessoa pessoa);
-	void transferir(double valor, Conta conta);
+	boolean sacar(BigDecimal valor);
+	boolean sacar(double valor);
+	boolean sacar (int valor);
+	boolean depositar(BigDecimal valor);
+	boolean depositar(double valor);
+	boolean depositar(int valor);
+	boolean transferir(BigDecimal valor, Conta conta);
+	boolean transferir(double valor, Conta conta);
 }
