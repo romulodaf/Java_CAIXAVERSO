@@ -36,7 +36,7 @@ public abstract sealed class Conta implements OperacoesBancarias permits ContaPo
 	}
 
 	private boolean verificaValor(BigDecimal valor) {
-		return valor.compareTo(BigDecimal.ZERO) >= 0;
+		return valor.compareTo(BigDecimal.ZERO) > 0;
 	}
 
 	@Override
